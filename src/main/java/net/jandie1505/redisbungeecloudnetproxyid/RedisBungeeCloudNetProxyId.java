@@ -1,4 +1,4 @@
-package net.jandie1505.lpservercontext;
+package net.jandie1505.redisbungeecloudnetproxyid;
 
 import eu.cloudnetservice.common.log.LogManager;
 import eu.cloudnetservice.driver.event.EventListener;
@@ -14,14 +14,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 
-public class LPServerContext extends DriverModule {
+public class RedisBungeeCloudNetProxyId extends DriverModule {
 
     @ModuleTask(lifecycle = ModuleLifeCycle.STARTED)
     public void onStart(
             EventManager eventManager
     ) {
         eventManager.registerListener(this);
-        LogManager.logger(LPServerContext.class).info("Started LPServerContext");
+        LogManager.logger(RedisBungeeCloudNetProxyId.class).info("Started RedisBungeeCloudNetProxyId");
     }
 
     @ModuleTask(lifecycle = ModuleLifeCycle.STOPPED)
@@ -29,30 +29,30 @@ public class LPServerContext extends DriverModule {
             EventManager eventManager
     ) {
         eventManager.unregisterListener(this);
-        LogManager.logger(LPServerContext.class).info("Stopped LPServerContext");
+        LogManager.logger(RedisBungeeCloudNetProxyId.class).info("Stopped RedisBungeeCloudNetProxyId");
     }
 
     @EventListener
     public void onCloudServicePreProcessStart(CloudServicePreProcessStartEvent event) {
 
-        Path configPath = event.service().pluginDirectory().resolve("LuckPerms").resolve("config.yml");
+        Path configPath = event.service().pluginDirectory().resolve("RedisBungee").resolve("config.yml");
 
         if (Files.exists(configPath) && Files.isRegularFile(configPath)) {
-            String taskName = event.service().serviceId().taskName();
+            String serviceName = event.service().serviceId().name();
 
             try {
 
                 Yaml yaml = new Yaml();
                 Map<String, Object> data = yaml.load(Files.newBufferedReader(configPath));
 
-                data.put("server", taskName);
+                data.put("proxy-id", serviceName);
 
                 yaml.dump(data, Files.newBufferedWriter(configPath));
 
-                LogManager.logger(LPServerContext.class).fine("Updated server context in LuckPerms configuration");
+                LogManager.logger(RedisBungeeCloudNetProxyId.class).fine("Updated server context in RedisBungee configuration");
 
             } catch (IOException e) {
-                LogManager.logger(LPServerContext.class).warning("Error while reading/writing LuckPerms configuration", e);
+                LogManager.logger(RedisBungeeCloudNetProxyId.class).warning("Error while reading/writing RedisBungee configuration", e);
             }
 
         }
