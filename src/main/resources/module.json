@@ -1,9 +1,9 @@
 {
   "runtimeModule": false,
   "storesSensitiveData": false,
-  "main": "net.jandie1505.redisbungeecloudnetserverid.RedisBungeeCloudNetProxyId",
+  "main": "net.jandie1505.redisbungeecloudnetproxyid.RedisBungeeCloudNetProxyId",
   "name": "RedisBungeeCloudNetProxyId",
-  "group": "net.jandie1505.redisbungeecloudnetserverid",
+  "group": "net.jandie1505.redisbungeecloudnetproxyid",
   "author": "jandie1505",
   "version": "1.0",
   "website": "https://github.com/jandie1505/RedisBungeeCloudNetProxyId",
